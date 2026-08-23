@@ -5,7 +5,10 @@ import { provideRouter } from '@angular/router';
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App, provideRouter],
+      imports: [App],
+      providers: [
+        provideRouter([])
+      ]
     }).compileComponents();
   });
 
