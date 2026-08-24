@@ -6,7 +6,6 @@ import { Productos } from './productos';
 import { Products as ProductsService } from '../../services/products';
 
 describe('Productos', () => {
-
   let component: Productos;
   let fixture: ComponentFixture<Productos>;
 
@@ -15,6 +14,7 @@ describe('Productos', () => {
       id: 1,
       nombre: 'Notebook',
       descripcion: 'Notebook de prueba',
+      images:[""],
       precio: 500000,
       stock: 5
     }
