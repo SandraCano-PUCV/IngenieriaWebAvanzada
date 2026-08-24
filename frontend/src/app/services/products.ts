@@ -11,10 +11,8 @@ export class Products {
   constructor(
     private http: HttpClient
   ) {}
-
   obtenerProductos():Observable<products[]>{
       return this.http.get<products[]>(this.url);
   }
-
-
+  
 }
