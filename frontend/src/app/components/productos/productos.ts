@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import {products} from "../../interfaces/products";
+import {products} from "../../models/products";
+import {Products} from "../../services/products";
+
 @Component({
   selector: 'app-productos',
   imports: [],
@@ -9,25 +11,15 @@ import {products} from "../../interfaces/products";
 })
 
 export class Productos {
-   Listaproducts: products[] = [
-  {
-    id: 1,
-    nombre: 'Notebook Lenovo',
-    description: 'Notebook de 14 pulgadas',
-    images: ['notebook1.jpg'],
-    price: 699990,
-    stock: 12
-  },
-  {
-    id: 2,
-    nombre: 'Mouse Logitech',
-    description: 'Mouse inalámbrico',
-    images: ['mouse.jpg'],
-    price: 29990,
-    stock: 20
+   Listaproducts: products[]=[];
+   constructor(
+    private productosService: Products
+  ) {}
+   
+ ngOnInit(): void {
+  this.productosService.obtenerProductos()
+  .subscribe((datos)=>{
+      this.Listaproducts = datos;
+   });
   }
-];
-
-
-
 }
