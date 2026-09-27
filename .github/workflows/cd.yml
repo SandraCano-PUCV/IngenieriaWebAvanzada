@@ -1,0 +1,61 @@
+name: CD Staging
+
+on:
+  workflow_run:
+    workflows:
+      - "CI Aplicación Web"
+    types:
+      - completed
+    branches:
+      - main
+
+
+jobs:
+
+  deploy-staging:
+
+    name: Deploy local staging
+
+    if: github.event.workflow_run.conclusion == 'success'
+
+    runs-on:
+      - self-hosted
+
+    steps:
+
+      - name: Obtener código validado
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+
+      - name: Levantar aplicación
+        run: |
+          docker compose \
+            -f docker-compose.staging.yml \
+            down
+
+          docker compose \
+            -f docker-compose.staging.yml \
+            up -d --build
+
+
+      - name: Esperar aplicación
+        run: sleep 10
+
+
+      - name: Health check backend
+        run: |
+          curl \
+            --fail \
+            --silent \
+            http://localhost:3000/health
+
+
+      - name: Verificar frontend
+        run: |
+          curl \
+            --fail \
+            --silent \
+            http://localhost:4200 \
+            > /dev/null

@@ -1,4 +1,5 @@
-name: CI Frontend Angular
+name: CI Aplicación Web
+
 on:
   push:
     branches:
@@ -10,17 +11,31 @@ on:
       - main
       - develop
 
+
+permissions:
+  contents: read
+
+
 jobs:
 
+  # ==================================================
+  # FRONTEND
+  # ==================================================
   frontend:
+
+    name: Frontend - Calidad, SCA, tests y build
+
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: frontend
+
     steps:
 
       - name: Obtener código
         uses: actions/checkout@v6
+
 
       - name: Configurar Node.js
         uses: actions/setup-node@v7
@@ -29,11 +44,142 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
+
       - name: Instalar dependencias
         run: npm ci
 
+
+      # -----------------------------------------
+      # Calidad estática
+      # -----------------------------------------
+      - name: Ejecutar lint
+        run: npm run lint
+
+
+      # -----------------------------------------
+      # SCA
+      # -----------------------------------------
+      - name: Auditar dependencias
+        run: npm audit --audit-level=high
+
+
+      # -----------------------------------------
+      # Pruebas unitarias
+      # -----------------------------------------
       - name: Ejecutar pruebas
         run: npm test -- --watch=false
 
+
+      # -----------------------------------------
+      # Build
+      # -----------------------------------------
       - name: Construir Angular
         run: npm run build
+
+
+
+  # ==================================================
+  # BACKEND
+  # ==================================================
+  backend:
+
+    name: Backend - Calidad, SCA, tests y build
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+
+      - name: Obtener código
+        uses: actions/checkout@v6
+
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+
+      - name: Instalar dependencias
+        run: npm ci
+
+
+      # -----------------------------------------
+      # Calidad estática
+      # -----------------------------------------
+      - name: Ejecutar lint
+        run: npm run lint
+
+
+      # -----------------------------------------
+      # SCA
+      # -----------------------------------------
+      - name: Auditar dependencias
+        run: npm audit --audit-level=high
+
+
+      # -----------------------------------------
+      # Pruebas
+      # -----------------------------------------
+      - name: Ejecutar pruebas
+        run: npm test
+
+
+      # -----------------------------------------
+      # TypeScript
+      # -----------------------------------------
+      - name: Verificar tipos
+        run: npm run typecheck
+
+
+      # -----------------------------------------
+      # Build
+      # -----------------------------------------
+      - name: Construir backend
+        run: npm run build
+
+
+
+  # ==================================================
+  # SAST
+  # ==================================================
+  codeql:
+
+    name: SAST - CodeQL
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+
+    steps:
+
+      - name: Obtener código
+        uses: actions/checkout@v6
+
+
+      - name: Inicializar CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+          config: |
+            paths:
+              - frontend
+              - backend
+
+            paths-ignore:
+              - frontend/node_modules
+              - frontend/dist
+              - backend/node_modules
+              - backend/dist
+
+
+      - name: Ejecutar análisis SAST
+        uses: github/codeql-action/analyze@v4
