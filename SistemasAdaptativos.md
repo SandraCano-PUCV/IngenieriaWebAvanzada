@@ -25,6 +25,8 @@ Estas características **pueden coexistir**. Un sistema autoadaptativo suele rea
 2. Una web selecciona un modo de bajo consumo cuando detecta conexión limitada: **comportamiento adaptativo** según el contexto (si hay selección dinámica de estrategias).
 3. Un servicio mide errores, analiza el patrón, conmuta de proveedor y comprueba recuperación: ejemplo de control autoadaptativo con ejecución **autónoma**. 
 
+---
+
 **¿Sistema Autoadaptativo?**
 Un **sistema autoadaptativo** es un sistema informático capaz de supervisar su funcionamiento y modificar automáticamente su comportamiento, configuración o estructura durante la ejecución, sin requerir intervención humana directa para cada cambio.
 
