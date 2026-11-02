@@ -23,8 +23,56 @@ Estas características **pueden coexistir**. Un sistema autoadaptativo suele rea
 ### Ejercicios de clasificación
 1. Un botón deshabilita el formulario mientras se envía: principalmente **reactivo**.
 2. Una web selecciona un modo de bajo consumo cuando detecta conexión limitada: **comportamiento adaptativo** según el contexto (si hay selección dinámica de estrategias).
-3. Un servicio mide errores, analiza el patrón, conmuta de proveedor y comprueba recuperación: ejemplo de control autoadaptativo con ejecución **autónoma**.
-4.
+3. Un servicio mide errores, analiza el patrón, conmuta de proveedor y comprueba recuperación: ejemplo de control autoadaptativo con ejecución **autónoma**. 
+
+**¿Sistema Autoadaptativo?**
+Un **sistema autoadaptativo** es un sistema informático capaz de supervisar su funcionamiento y modificar automáticamente su comportamiento, configuración o estructura durante la ejecución, sin requerir intervención humana directa para cada cambio.
+
+La característica principal es la **capacidad de gestionar automáticamente su propia adaptación**.
+
+Los sistemas autoadaptativos pueden utilizar arquitecturas de control como MAPE-K, aunque esta no es obligatoria.
+
+**Ejemplo:**
+Una aplicación web monitoriza continuamente sus tiempos de respuesta.
+
+1. Detecta que el tiempo de respuesta supera un umbral establecido.
+2. Analiza las condiciones de funcionamiento.
+3. Determina una estrategia para reducir la carga.
+4. Cambia automáticamente a un modo de procesamiento simplificado.
+5. Vuelve a medir los tiempos de respuesta para evaluar el resultado.
+
+El sistema decide y ejecuta la adaptación durante su funcionamiento.
+
+**¿Sistema autónomo?**
+Un **sistema autónomo** es un sistema capaz de tomar decisiones y ejecutar acciones para alcanzar objetivos definidos, operando con cierto grado de independencia respecto de la intervención humana.
+
+La característica principal es su **capacidad de decidir y actuar para alcanzar objetivos**.
+
+**Ejemplo:**
+Un agente de software recibe el objetivo de organizar las tareas pendientes de un proyecto.
+
+El agente puede:
+
+1. Identificar las tareas pendientes.
+2. Analizar prioridades y fechas límite.
+3. Determinar el orden de ejecución.
+4. Asignar tareas según las reglas disponibles.
+5. Supervisar el cumplimiento de los objetivos.
+
+En este caso, el sistema toma decisiones operativas dentro de los objetivos y restricciones establecidos.
+
+## Diferencias entre los sistemas
+
+| Característica | Adaptativo | Autoadaptativo | Autónomo |
+|---|---|---|---|
+| Propósito principal | Ajustar su funcionamiento | Gestionar automáticamente su adaptación | Alcanzar objetivos con independencia |
+| Capacidad distintiva | Adaptación | Autoajuste durante la ejecución | Toma de decisiones y actuación |
+| Cambia su comportamiento | Sí | Sí | No necesariamente |
+| Requiere intervención humana en cada cambio | No necesariamente | No | No necesariamente |
+| Puede utilizar reglas | Sí | Sí | Sí |
+| Puede utilizar Machine Learning | Sí | Sí | Sí |
+| Puede implementar MAPE-K | Sí | Sí | Sí |
+| Ejemplo | Personalización de ejercicios | Ajuste automático del procesamiento | Agente de gestión de tareas |
 
 ---
 
